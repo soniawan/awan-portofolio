@@ -1,21 +1,21 @@
-const scrollers = document.querySelectorAll(".scroller");
+window.addEventListener("load", () => {
+  const marqueeInner = document.querySelector(".marquee__inner");
+  const span = marqueeInner.querySelector("span");
 
-if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  addAnimation();
-}
+  const spanWidth = span.offsetWidth;
+  const screenWidth = window.innerWidth;
+  const minWidth = screenWidth * 2;
 
-function addAnimation() {
-  scrollers.forEach((scroller) => {
-    scroller.setAttribute("data-animated", true);
+  let totalWidth = spanWidth;
+  const content = marqueeInner.innerHTML;
 
-    const scrollerInner = scroller.querySelector(".scroller__inner");
-    const scrollerContent = Array.from(scrollerInner.children);
+  while (totalWidth < minWidth) {
+    marqueeInner.insertAdjacentHTML("beforeend", content);
+    totalWidth += spanWidth + 48; // +gap
+  }
 
-    scrollerContent.forEach((item) => {
-      const duplicatedItem = item.cloneNode(true);
+  const speed = 200; // pixels per second
+  const duration = totalWidth / speed;
 
-      duplicatedItem.setAttribute("aria-hidden", true);
-      scrollerInner.appendChild(duplicatedItem);
-    });
-  });
-}
+  marqueeInner.style.animationDuration = `${duration}s`;
+});

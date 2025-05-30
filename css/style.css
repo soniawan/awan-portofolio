@@ -116,50 +116,42 @@ nav {
   /* font-family: "Inter"; */
 }
 
-/* Scroller Hero */
-.scroller {
-  width: 100%;
-  /* outline: 3px solid lime; */
-}
-
-.scroller__inner {
-  padding-block: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  font-size: 70px;
-  font-weight: 700;
-  letter-spacing: 5pt;
-  text-transform: uppercase;
-  color: #edede2;
-}
-
-.scroller[data-animated="true"] {
-  /* border: 5px solid red; */
+/* Marquee Text */
+.marquee {
   overflow: hidden;
-
-  -webkit-mask: linear-gradient(
-    90deg,
+  white-space: nowrap;
+  mask-image: linear-gradient(
+    to right,
     transparent,
-    white 20%,
-    white 80%,
+    black 10%,
+    black 90%,
     transparent
   );
-  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
 }
 
-.scroller[data-animated="true"] .scroller__inner {
-  width: max-content;
-  flex-wrap: nowrap;
-  animation: scroll 20s linear infinite;
+.marquee__inner {
+  display: inline-flex;
+  gap: 3rem;
+  animation: scroll linear infinite;
 }
 
-.scroller[data-animated="true"] .scroller__inner:hover {
+.marquee__inner span {
+  font-size: 4rem;
+  letter-spacing: 2pt;
+  font-weight: 400;
+  color: #edede2;
+  text-transform: uppercase;
+}
+
+.marquee:hover .marquee__inner {
   animation-play-state: paused;
 }
 
 @keyframes scroll {
+  from {
+    transform: translateX(0%);
+  }
   to {
-    transform: translate(calc(-50% - 0.5rem));
+    transform: translateX(-50%);
   }
 }
